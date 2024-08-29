@@ -2,7 +2,24 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="max-width: 95%; margin: auto;">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img src="https://www.valledelguamuez-putumayo.gov.co/ImagenEventos/1.jpg" class="d-block w-100" alt="..." style="height: 500px; object-fit: cover;">
+        </div>
+        <div class="carousel-item" data-bs-interval="2000">
+            <img src="https://www.elheraldo.co/sites/default/files/body/2013/07/03/articulo/116124-1946587w.jpg" class="d-block w-100" alt="..." style="height: 400px; object-fit: cover;">
+        </div>
+        <div class="carousel-item">
+            <img src="https://www.valledelguamuez-putumayo.gov.co/NuestraAlcaldia/SaladePrensa/PublishingImages/Paginas/-Acto-de-posesi%C3%B3n-del-Cabildo-Ind%C3%ADgena-Aw%C3%A1-Im/2.jpg" class="d-block w-100" alt="..." style="height: 400px; object-fit: cover;">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
