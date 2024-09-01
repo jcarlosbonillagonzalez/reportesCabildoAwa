@@ -10,5 +10,5 @@ namespace ReportesCabildoAwa.Controllers
             return View();
         }
     }
-
 }
+
