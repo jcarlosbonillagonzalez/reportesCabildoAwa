@@ -1,16 +1,11 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
-namespace ReportesCabildoAwa.Models
+namespace ReportesCabildoAwa.Models.ViewModels
 {
-    public class Personas
+    public class PersonaViewModel
     {
-        [Key]
-        public Guid IdPersona { get; set; }
-
-        [DisplayName("Numero Documento")]
-        [Required(ErrorMessage = "El campo {0} es obligatorio.")]
+        public int IdPersona { get; set; }
         public string NumeroDocumento { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }

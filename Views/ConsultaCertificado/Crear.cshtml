@@ -1,0 +1,53 @@
+﻿@using ReportesCabildoAwa.Models.ViewModels
+@{
+    ViewData["Title"] = "Crear";
+}
+
+@model PersonaViewModel
+
+<h2>Crear Persona</h2>
+<form asp-action="Crear" method="post">
+    <div class="form-group">
+        <label asp-for="NumeroDocumento" class="form-label">Número Documento</label>
+        <input asp-for="NumeroDocumento" class="form-control" placeholder="Número Documento" />
+        <span asp-validation-for="NumeroDocumento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Nombre" class="form-label">Nombre</label>
+        <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Apellido" class="form-label">Apellido</label>
+        <input asp-for="Apellido" class="form-control" placeholder="Apellido" />
+        <span asp-validation-for="Apellido" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="FechaNacimiento" class="form-label">Fecha Nacimiento</label>
+        <input type="date" asp-for="FechaNacimiento" class="form-control" />
+        <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Direccion" class="form-label">Dirección</label>
+        <input asp-for="Direccion" class="form-control" placeholder="Dirección" />
+        <span asp-validation-for="Direccion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Telefono" class="form-label">Teléfono</label>
+        <input asp-for="Telefono" class="form-control" placeholder="Teléfono" />
+        <span asp-validation-for="Telefono" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="CorreoElectronico" class="form-label">Correo Electrónico</label>
+        <input asp-for="CorreoElectronico" class="form-control" placeholder="Correo Electrónico" />
+        <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
