@@ -4,10 +4,10 @@
 
 <div class="container mt-5">
     <h2>Generar Certificado</h2>
-    <form>
+    <form asp-action="BuscarDocumento" method="post">
         <div class="mb-3">
             <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
-            <select class="form-select" id="tipoDocumento">
+            <select class="form-select" id="tipoDocumento" name="tipoDocumento">
                 <option selected>Seleccione el tipo de documento</option>
                 <option value="CC">Cédula de Ciudadanía</option>
                 <option value="TI">Tarjeta de Identidad</option>
@@ -17,8 +17,39 @@
         </div>
         <div class="mb-3">
             <label for="numeroDocumento" class="form-label">Número de Documento</label>
-            <input type="text" class="form-control" id="numeroDocumento" placeholder="Ingrese el número de documento">
+            <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese el número de documento">
         </div>
         <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
 </div>
+
+<!-- Muestra la persona si se encontró -->
+@if (ViewData["Persona"] != null)
+{
+    var persona = (ReportesCabildoAwa.Models.Persona)ViewData["Persona"];
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">Detalles de la Persona</h5>
+            <p class="card-text"><strong>Nombre:</strong> @persona.Nombre @persona.Apellido</p>
+            <p class="card-text"><strong>Documento:</strong> @persona.NumeroDocumento</p>
+            <p class="card-text"><strong>Dirección:</strong> @persona.Direccion</p>
+            <p class="card-text"><strong>Teléfono:</strong> @persona.Telefono</p>
+            <p class="card-text"><strong>Correo Electrónico:</strong> @persona.CorreoElectronico</p>
+            <a asp-action="GenerarCertificado" asp-route-id="@persona.IdPersona" class="btn btn-primary">Generar Certificado</a>
+        </div>
+    </div>
+}
+
+@if (ViewData["PersonaNoEncontrada"] != null)
+{
+    <div class="alert alert-danger mt-4">
+        No se encontró ninguna persona con ese número de documento.
+    </div>
+}
+
+@if (ViewData["Error"] != null)
+{
+    <div class="alert alert-warning mt-4">
+        @ViewData["Error"]
+    </div>
+}

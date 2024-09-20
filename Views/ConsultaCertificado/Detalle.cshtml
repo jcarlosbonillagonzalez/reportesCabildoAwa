@@ -1,0 +1,41 @@
+﻿@using ReportesCabildoAwa.Models.ViewModels
+@{
+    ViewData["Title"] = "Detalle de Persona";
+}
+
+@model PersonaViewModel
+
+<h2>Detalle de Persona</h2>
+
+<div class="form-group">
+    <label>Número Documento</label>
+    <p class="form-control-static">@Model.NumeroDocumento</p>
+</div>
+<div class="form-group">
+    <label>Nombre</label>
+    <p class="form-control-static">@Model.Nombre</p>
+</div>
+<div class="form-group">
+    <label>Apellido</label>
+    <p class="form-control-static">@Model.Apellido</p>
+</div>
+<div class="form-group">
+    <label>Fecha Nacimiento</label>
+    <p class="form-control-static">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</p>
+</div>
+<div class="form-group">
+    <label>Dirección</label>
+    <p class="form-control-static">@Model.Direccion</p>
+</div>
+<div class="form-group">
+    <label>Teléfono</label>
+    <p class="form-control-static">@Model.Telefono</p>
+</div>
+<div class="form-group">
+    <label>Correo Electrónico</label>
+    <p class="form-control-static">@Model.CorreoElectronico</p>
+</div>
+
+<a asp-action="Consulta" class="btn btn-primary">Volver a la lista</a>
+<a asp-action="Editar" asp-route-id="@Model.IdPersona" class="btn btn-warning">Editar</a>
+<a asp-action="Eliminar" asp-route-id="@Model.IdPersona" class="btn btn-danger">Eliminar</a>
