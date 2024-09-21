@@ -2,10 +2,10 @@
     ViewData["Title"] = "Buscar Documento";
 }
 
-<div class="container mt-5">
+<div class="container m-3">
     <h2>Generar Certificado</h2>
     <form asp-action="BuscarDocumento" method="post">
-        <div class="mb-3">
+        <div class="mb-4">
             <label for="tipoDocumento" class="form-label">Tipo de Documento</label>
             <select class="form-select" id="tipoDocumento" name="tipoDocumento">
                 <option selected>Seleccione el tipo de documento</option>
@@ -15,7 +15,7 @@
                 <option value="PAS">Pasaporte</option>
             </select>
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
             <label for="numeroDocumento" class="form-label">Número de Documento</label>
             <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese el número de documento">
         </div>
