@@ -17,16 +17,16 @@
         </div>
         <div class="mb-4">
             <label for="numeroDocumento" class="form-label">Número de Documento</label>
-            <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ingrese el número de documento">
+            <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento"
+                placeholder="Ingrese el número de documento">
         </div>
         <button type="submit" class="btn btn-primary">Buscar</button>
     </form>
 </div>
 
 <!-- Muestra la persona si se encontró -->
-@if (ViewData["Persona"] != null)
+@if (ViewData["Persona"] is ReportesCabildoAwa.Models.Persona persona)
 {
-    var persona = (ReportesCabildoAwa.Models.Persona)ViewData["Persona"];
     <div class="card mt-4">
         <div class="card-body">
             <h5 class="card-title">Detalles de la Persona</h5>
@@ -35,7 +35,8 @@
             <p class="card-text"><strong>Dirección:</strong> @persona.Direccion</p>
             <p class="card-text"><strong>Teléfono:</strong> @persona.Telefono</p>
             <p class="card-text"><strong>Correo Electrónico:</strong> @persona.CorreoElectronico</p>
-            <a asp-action="GenerarCertificado" asp-route-id="@persona.IdPersona" class="btn btn-primary">Generar Certificado</a>
+            <a asp-action="GenerarCertificado" asp-route-id="@persona.IdPersona" class="btn btn-primary">Generar
+                Certificado</a>
         </div>
     </div>
 }

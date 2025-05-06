@@ -15,5 +15,7 @@ namespace ReportesCabildoAwa.Models
         [Required]
         [Display(Name = "Estado Tipo Documento")]
         public bool EstadoTipoDocumento { get; set; }
+
+        public virtual ICollection<Persona> Personas { get; set; }
     }
 }

@@ -25,5 +25,7 @@ namespace ReportesCabildoAwa.Models
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
+
+        public virtual TipoDocumento TipoDocumento { get; set; }
     }
 }

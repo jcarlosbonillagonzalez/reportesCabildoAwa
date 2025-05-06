@@ -1,0 +1,8 @@
+<ItemGroup>
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="xunit" Version="2.7.0" />
+</ItemGroup>
+
+<ItemGroup>
+    <ProjectReference Include="..\ReportesCabildoAwa\ReportesCabildoAwa.csproj" />
+</ItemGroup> 
