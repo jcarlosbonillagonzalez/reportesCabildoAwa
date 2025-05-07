@@ -8,7 +8,7 @@
     <h2 class="mb-4 text-danger">¿Estás seguro de eliminar esta persona?</h2>
 
     <div class="mb-4">
-        <dl class="row">
+    <dl class="row">
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NumeroDocumento)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.NumeroDocumento)</dd>
 
@@ -36,11 +36,11 @@
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EstadoPersona)</dt>
             <dd class="col-sm-9">
                 @(Model.EstadoPersona ? "Activo" : "Inactivo")
-            </dd>
+        </dd>
 
-        </dl>
+    </dl>
     </div>
-
+    
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdPersona" />
         <div class="d-flex justify-content-between">

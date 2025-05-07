@@ -8,7 +8,7 @@
     <h2 class="mb-4">Detalle de Persona</h2>
 
     <div class="mb-4">
-        <dl class="row">
+    <dl class="row">
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NumeroDocumento)</dt>
             <dd class="col-sm-9">@Html.DisplayFor(model => model.NumeroDocumento)</dd>
 
@@ -36,10 +36,10 @@
             <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EstadoPersona)</dt>
             <dd class="col-sm-9">
                 @(Model.EstadoPersona ? "Activo" : "Inactivo")
-            </dd>
+        </dd>
 
-        </dl>
-    </div>
+    </dl>
+</div>
 
     <div class="d-flex justify-content-between">
         <a asp-action="Index" class="btn btn-secondary">Volver</a>

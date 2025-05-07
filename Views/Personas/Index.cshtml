@@ -16,7 +16,7 @@
     <div class="table-responsive d-flex justify-content-center">
         <table class="table table-hover table-bordered align-middle" style="width: 90%;">
             <thead class="table-light">
-                <tr>
+        <tr>
                     <th>@Html.DisplayNameFor(model => model.NumeroDocumento)</th>
                     <th>@Html.DisplayNameFor(model => model.Nombre)</th>
                     <th>@Html.DisplayNameFor(model => model.Apellido)</th>
@@ -27,12 +27,12 @@
                     <th>@Html.DisplayNameFor(model => model.TipoDocumento)</th>
                     <th>@Html.DisplayNameFor(model => model.EstadoPersona)</th>
                     <th class="text-center" style="min-width: 200px;">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
+        </tr>
+    </thead>
+    <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
+        <tr>
                         <td>@item.NumeroDocumento</td>
                         <td>@item.Nombre</td>
                         <td>@item.Apellido</td>
@@ -45,18 +45,18 @@
                             <span class="badge @(item.EstadoPersona ? "bg-success" : "bg-secondary")">
                                 @(item.EstadoPersona ? "Activo" : "Inactivo")
                             </span>
-                        </td>
+            </td>
                         <td class="text-center">
                             <div class="btn-group" role="group">
                                 <a asp-action="Edit" asp-route-id="@item.IdPersona" class="btn btn-sm btn-outline-warning" title="Editar">✏️</a>
                                 <a asp-action="Details" asp-route-id="@item.IdPersona" class="btn btn-sm btn-outline-info" title="Detalles">🔍</a>
                                 <a asp-action="Delete" asp-route-id="@item.IdPersona" class="btn btn-sm btn-outline-danger" title="Eliminar">🗑️</a>
                             </div>
-                        </td>
-                    </tr>
-                }
-            </tbody>
+            </td>
+        </tr>
+}
+    </tbody>
 
-        </table>
+</table>
     </div>
 </div>
