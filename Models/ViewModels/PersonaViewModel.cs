@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
-
-namespace ReportesCabildoAwa.Models.ViewModels
+﻿namespace ReportesCabildoAwa.Models.ViewModels
 {
     public class PersonaViewModel
     {
@@ -13,5 +10,6 @@ namespace ReportesCabildoAwa.Models.ViewModels
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
+        public bool EstadoPersona { get; set; } = true;
     }
 }
