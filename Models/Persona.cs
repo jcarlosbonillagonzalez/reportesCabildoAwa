@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReportesCabildoAwa.Models
 {
@@ -25,5 +26,17 @@ namespace ReportesCabildoAwa.Models
         public string Direccion { get; set; }
         public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
+
+        [DisplayName("Estado Persona")]
+        [Required]
+        [DefaultValue(true)]
+        public bool EstadoPersona { get; set; }
+
+        // Relación con TipoDocumento
+        public int IdTipoDocumento { get; set; }
+
+        [ForeignKey("IdTipoDocumento")]
+        public TipoDocumento? TipoDocumento { get; set; }
+
     }
 }

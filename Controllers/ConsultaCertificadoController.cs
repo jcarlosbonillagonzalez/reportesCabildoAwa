@@ -25,11 +25,18 @@ namespace ReportesCabildoAwa.Controllers
         {
             if (string.IsNullOrEmpty(tipoDocumento) || string.IsNullOrEmpty(numeroDocumento))
             {
-                ViewData["Error"] = "Por favor, ingrese el tipo y número de documento.";
+                ViewData["Error"] = "Por favor, seleccione el tipo y número de documento.";
                 return View("Consulta");
             }
 
-            var persona = await _unitOfWork.Repository<Persona>().FirstOrDefaultAsync(p => p.NumeroDocumento == numeroDocumento);
+            if (!int.TryParse(tipoDocumento, out int idTipoDocumento))
+            {
+                ViewData["Error"] = "El tipo de documento no es válido.";
+                return View("Consulta");
+            }
+
+            var persona = await _unitOfWork.Repository<Persona>()
+                .FirstOrDefaultAsync(p => p.NumeroDocumento == numeroDocumento && p.IdTipoDocumento == idTipoDocumento);
 
             if (persona == null)
             {
@@ -40,6 +47,7 @@ namespace ReportesCabildoAwa.Controllers
             ViewData["Persona"] = persona;
             return View("Consulta");
         }
+
 
         public async Task<IActionResult> Detalle(int id)
         {

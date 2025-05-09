@@ -6,7 +6,6 @@
     <title>@ViewData["Title"] - ReportesCabildoAwa</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ReportesCabildoAwa.styles.css" asp-append-version="true" />
 </head>
 
 @* colores  bg body-- bg-primary*@
@@ -32,8 +31,18 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="ConsultaCertificado" asp-action="Consulta">Consulta</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="gestionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Gestión
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="gestionDropdown">
+                                <li><a class="dropdown-item" asp-area="" asp-controller="Personas" asp-action="Index">Personas</a></li>
+                                @* Puedes agregar más opciones aquí si quieres *@
+                            </ul>
+                        </li>
+
                     </ul>
-                   @*  <partial name="_LoginPartial" /> *@
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -45,78 +54,11 @@
     </div>
 
 
-    <!-- Barra final  -->
-
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Footer Centered</title>
-        <!-- Bootstrap CSS -->
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            /* Estilos personalizados para centrar el texto del footer */
-            .footer-container {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background-color: #f8f9fa;
-                border-top: 1px solid #dee2e6;
-                padding: 10px 0;
-                text-align: center;
-                color: #6c757d; /* Color gris para el texto */
-            }
-
-                .footer-container a {
-                    text-decoration: none;
-                    color: #007bff;
-                }
-
-                    .footer-container a:hover {
-                        text-decoration: underline;
-                    }
-
-            .navbar {
-                position: fixed; /* O absolute si se ajusta mejor a tu diseño */
-                top: 0;
-                left: 0;
-                width: 100%;
-                background-color: rgba(0, 0, 0, 0.8);
-                .navbar-custom
-
-            {
-                background-color: #28a745; /* Color verde deseado */
-            }
-                color: white;
-                padding: 10px;
-                z-index: 2000; 
-                display: flex;
-                justify-content: center; /* Centra los elementos de la barra si es necesario */
-            }
-
-           
-
-
-        </style>
-    </head>
-    <body>
-
-       
-        <div class="footer-container">
-            &copy; <span id="year"></span> - Todos los Derechos Reservados Cabildo Indígena Awá 
-        @*     <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - ReportesCabildoAwa - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
-
-        <!--Año actual  -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-        <script>
-            
-            document.getElementById('year').textContent = new Date().getFullYear();
-        </script>
-    </body>
-</html>
-
+    </footer>
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

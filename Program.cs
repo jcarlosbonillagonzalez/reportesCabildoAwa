@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using ReportesCabildoAwa.Business;
 using ReportesCabildoAwa.Data;
 using ReportesCabildoAwa.UnitOfWork;
 using System.Globalization;
@@ -20,6 +21,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<PersonaBusiness>();
 
 var app = builder.Build();
 
