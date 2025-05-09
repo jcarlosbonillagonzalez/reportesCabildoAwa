@@ -1,164 +1,149 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ReportesCabildoAwa.Data;
+using ReportesCabildoAwa.Business;
+using ReportesCabildoAwa.Common.Constantes;
+using ReportesCabildoAwa.Common.Paginacion;
 using ReportesCabildoAwa.Models;
+using ReportesCabildoAwa.Models.ViewModels;
 
 namespace ReportesCabildoAwa.Controllers
 {
     public class PersonasController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly PersonaBusiness _personaBusiness;
 
-        public PersonasController(ApplicationDbContext context)
+        public PersonasController(PersonaBusiness personaBusiness)
         {
-            _context = context;
+            _personaBusiness = personaBusiness;
         }
 
-        // GET: Personas
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Index(int page = 1, int pageSize = PaginacionConstantes.TamañoPorDefecto)
         {
-            var applicationDbContext = _context.Personas.Include(p => p.TipoDocumento);
-            return View(await applicationDbContext.ToListAsync());
-        }
+            // Validar si el pageSize es uno de los permitidos
+            if (!PaginacionConstantes.TamañosPermitidos.Contains(pageSize))
+            {
+                pageSize = PaginacionConstantes.TamañoPorDefecto;
+            }
+    
+            var paginacion = new PaginationParams
+            {
+                PageNumber = page,
+                PageSize = pageSize
+            };
 
-        // GET: Personas/Details/5
-        public async Task<IActionResult> Details(int? id)
+        var resultado = await _personaBusiness.ObtenerPaginadoAsync(paginacion);
+        return View(resultado);
+    }
+
+
+
+    [HttpGet]
+    public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var persona = await _context.Personas
-                .Include(p => p.TipoDocumento)
-                .FirstOrDefaultAsync(m => m.IdPersona == id);
-            if (persona == null)
-            {
-                return NotFound();
-            }
+            var persona = await _personaBusiness.ObtenerPorIdAsync(id.Value);
+            if (persona == null) return NotFound();
 
             return View(persona);
         }
 
-        // GET: Personas/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["IdTipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdTipoDocumento", "Nombre");
+            ViewData["IdTipoDocumento"] = new SelectList(await _personaBusiness.ObtenerTiposDocumentoAsync(), "IdTipoDocumento", "Nombre");
             return View();
         }
 
-        // POST: Personas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Persona persona)
+        public async Task<IActionResult> Create(PersonaViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(persona);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewData["IdTipoDocumento"] = new SelectList(await _personaBusiness.ObtenerTiposDocumentoAsync(), "IdTipoDocumento", "Nombre", model.IdTipoDocumento);
+                return View(model);
             }
-            ViewData["IdTipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdTipoDocumento", "Nombre", persona.IdTipoDocumento);
-            return View(persona);
+
+            var persona = MapearAPersona(model);
+            await _personaBusiness.CrearAsync(persona);
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Personas/Edit/5
+        
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var persona = await _context.Personas.FindAsync(id);
-            if (persona == null)
-            {
-                return NotFound();
-            }
-            ViewData["IdTipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdTipoDocumento", "Nombre", persona.IdTipoDocumento);
+            var persona = await _personaBusiness.ObtenerPorIdAsync(id.Value);
+            if (persona == null) return NotFound();
+
+            ViewData["IdTipoDocumento"] = new SelectList(await _personaBusiness.ObtenerTiposDocumentoAsync(), "IdTipoDocumento", "Nombre", persona.IdTipoDocumento);
             return View(persona);
         }
 
-        // POST: Personas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPersona,NumeroDocumento,Nombre,Apellido,FechaNacimiento,Direccion,Telefono,CorreoElectronico,IdTipoDocumento,EstadoPersona")] Persona persona)
+        public async Task<IActionResult> Edit(int id, Persona persona)
         {
-            if (id != persona.IdPersona)
+            if (id != persona.IdPersona) return NotFound();
+
+            //if (!ModelState.IsValid)
+            //{
+            //    ViewData["IdTipoDocumento"] = new SelectList(await _personaBusiness.ObtenerTiposDocumentoAsync(), "IdTipoDocumento", "Nombre", persona.IdTipoDocumento);
+            //    return View(persona);
+            //}
+
+            try
             {
-                return NotFound();
+                await _personaBusiness.ActualizarAsync(persona);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_personaBusiness.Existe(persona.IdPersona)) return NotFound();
+                throw;
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(persona);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PersonaExists(persona.IdPersona))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdTipoDocumento"] = new SelectList(_context.TipoDocumentos, "IdTipoDocumento", "Nombre", persona.IdTipoDocumento);
-            return View(persona);
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Personas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var persona = await _context.Personas
-                .Include(p => p.TipoDocumento)
-                .FirstOrDefaultAsync(m => m.IdPersona == id);
-            if (persona == null)
-            {
-                return NotFound();
-            }
+            var persona = await _personaBusiness.ObtenerPorIdAsync(id.Value);
+            if (persona == null) return NotFound();
 
             return View(persona);
         }
 
-        // POST: Personas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var persona = await _context.Personas.FindAsync(id);
+            var persona = await _personaBusiness.ObtenerPorIdAsync(id);
             if (persona != null)
             {
-                _context.Personas.Remove(persona);
+                await _personaBusiness.EliminarAsync(persona);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonaExists(int id)
+        private Persona MapearAPersona(PersonaViewModel model) => new()
         {
-            return _context.Personas.Any(e => e.IdPersona == id);
-        }
+            IdPersona = model.IdPersona,
+            NumeroDocumento = model.NumeroDocumento,
+            Nombre = model.Nombre,
+            Apellido = model.Apellido,
+            FechaNacimiento = model.FechaNacimiento,
+            Direccion = model.Direccion,
+            Telefono = model.Telefono,
+            CorreoElectronico = model.CorreoElectronico,
+            IdTipoDocumento = model.IdTipoDocumento,
+            EstadoPersona = model.EstadoPersona
+        };
     }
 }

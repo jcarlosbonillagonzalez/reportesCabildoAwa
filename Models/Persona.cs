@@ -36,7 +36,7 @@ namespace ReportesCabildoAwa.Models
         public int IdTipoDocumento { get; set; }
 
         [ForeignKey("IdTipoDocumento")]
-        public TipoDocumento TipoDocumento { get; set; }
+        public TipoDocumento? TipoDocumento { get; set; }
 
     }
 }
