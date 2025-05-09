@@ -27,11 +27,16 @@ namespace ReportesCabildoAwa.Models
         public string Telefono { get; set; }
         public string CorreoElectronico { get; set; }
 
+        [DisplayName("Estado Persona")]
+        [Required]
+        [DefaultValue(true)]
+        public bool EstadoPersona { get; set; }
+
         // Relación con TipoDocumento
         public int IdTipoDocumento { get; set; }
 
         [ForeignKey("IdTipoDocumento")]
-        public TipoDocumento TipoDocumento { get; set; }
+        public TipoDocumento? TipoDocumento { get; set; }
 
     }
 }

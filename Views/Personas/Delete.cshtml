@@ -1,0 +1,51 @@
+﻿@model ReportesCabildoAwa.Models.Persona
+
+@{
+    ViewData["Title"] = "Eliminar Persona";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-danger">¿Estás seguro de eliminar esta persona?</h2>
+
+    <div class="mb-4">
+    <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.NumeroDocumento)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.NumeroDocumento)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nombre)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Apellido)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Apellido)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.FechaNacimiento)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.FechaNacimiento)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Direccion)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Direccion)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Telefono)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Telefono)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.CorreoElectronico)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.CorreoElectronico)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.TipoDocumento)</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.TipoDocumento.Nombre)</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.EstadoPersona)</dt>
+            <dd class="col-sm-9">
+                @(Model.EstadoPersona ? "Activo" : "Inactivo")
+        </dd>
+
+    </dl>
+    </div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="IdPersona" />
+        <div class="d-flex justify-content-between">
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </form>
+</div>
